@@ -26,7 +26,6 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         </div>
       ) : (
         <div>
-          
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/allitems">All Items</Link>
@@ -61,3 +60,5 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(Navbar);
+
+//C: navbar has two sign up links

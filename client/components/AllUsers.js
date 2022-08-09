@@ -47,3 +47,5 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(AllUsers);
+
+//C: this is one way to check if a user is an admin but certainly not the most secure. gateway authentication is miles better

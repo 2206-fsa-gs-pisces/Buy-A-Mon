@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchCart, updateCart, clearItem, closeCart } from '../store/cart';
-import { me } from '../store/auth';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchCart, updateCart, clearItem, closeCart } from "../store/cart";
+import { me } from "../store/auth";
 
 export class Cart extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export class Cart extends React.Component {
       this.setState({ id: userId });
       this.props.getCart(userId);
     }
-    let guestCart = JSON.parse(window.localStorage.getItem('cart'));
+    let guestCart = JSON.parse(window.localStorage.getItem("cart"));
     // console.log(guestCart);
     if (guestCart) {
       this.setState({ guestCart: guestCart });
@@ -37,7 +37,7 @@ export class Cart extends React.Component {
           <span />
         )}
         <div id="cartItems">
-          {this.state.guestCart.map(item => {
+          {this.state.guestCart.map((item) => {
             return (
               <div className="cartItems" key={item.id}>
                 <Link to={`/items/${item.id}`}>
@@ -49,9 +49,9 @@ export class Cart extends React.Component {
                   <h3>Quantity: {item.qty}</h3>
                 </div>
                 <button
-                  onClick={evt => {
+                  onClick={(evt) => {
                     let guestCart = JSON.parse(
-                      window.localStorage.getItem('cart')
+                      window.localStorage.getItem("cart")
                     );
                     for (let i = 0; i < guestCart.length; i++) {
                       if (guestCart[i].id === item.id) {
@@ -59,7 +59,7 @@ export class Cart extends React.Component {
                       }
                     }
                     window.localStorage.setItem(
-                      'cart',
+                      "cart",
                       JSON.stringify(guestCart)
                     );
                     this.setState({ guestCart: guestCart });
@@ -69,9 +69,9 @@ export class Cart extends React.Component {
                 </button>
                 {item.qty > 1 ? (
                   <button
-                    onClick={evt => {
+                    onClick={(evt) => {
                       let guestCart = JSON.parse(
-                        window.localStorage.getItem('cart')
+                        window.localStorage.getItem("cart")
                       );
                       for (let i = 0; i < guestCart.length; i++) {
                         if (guestCart[i].id === item.id) {
@@ -79,7 +79,7 @@ export class Cart extends React.Component {
                         }
                       }
                       window.localStorage.setItem(
-                        'cart',
+                        "cart",
                         JSON.stringify(guestCart)
                       );
                       this.setState({ guestCart: guestCart });
@@ -91,9 +91,9 @@ export class Cart extends React.Component {
                   <span />
                 )}
                 <button
-                  onClick={evt => {
+                  onClick={(evt) => {
                     let guestCart = JSON.parse(
-                      window.localStorage.getItem('cart')
+                      window.localStorage.getItem("cart")
                     );
                     for (let i = 0; i < guestCart.length; i++) {
                       if (guestCart[i].id === item.id) {
@@ -102,7 +102,7 @@ export class Cart extends React.Component {
                       }
                     }
                     window.localStorage.setItem(
-                      'cart',
+                      "cart",
                       JSON.stringify(guestCart)
                     );
                     this.setState({ guestCart: guestCart });
@@ -118,7 +118,7 @@ export class Cart extends React.Component {
           <button
             onClick={() => {
               this.setState({ guestCart: [] });
-              window.localStorage.removeItem('cart');
+              window.localStorage.removeItem("cart");
             }}
           >
             <Link to="/checkout">CHECKOUT</Link>
@@ -133,7 +133,7 @@ export class Cart extends React.Component {
         <h1>Cart</h1>
         {cart.length === 0 ? <h2>Your Cart is empty</h2> : <span />}
         <div id="cartItems">
-          {cart.map(item => {
+          {cart.map((item) => {
             //console.log(item);
             return (
               <div className="cartItems" key={item.id}>
@@ -146,7 +146,7 @@ export class Cart extends React.Component {
                   <h3>Quantity: {item.qty}</h3>
 
                   <button
-                    onClick={evt => {
+                    onClick={(evt) => {
                       this.props.update(
                         { qty: ++item.qty, id: item.id, add: true, ...item },
                         this.state.id
@@ -157,7 +157,7 @@ export class Cart extends React.Component {
                   </button>
                   {item.qty > 1 ? (
                     <button
-                      onClick={evt => {
+                      onClick={(evt) => {
                         this.props.update(
                           { qty: --item.qty, id: item.id, add: false, ...item },
                           this.state.id
@@ -170,7 +170,7 @@ export class Cart extends React.Component {
                     <span />
                   )}
                   <button
-                    onClick={evt => {
+                    onClick={(evt) => {
                       this.props.delete(item.id, this.state.id);
                     }}
                   >
@@ -197,21 +197,24 @@ export class Cart extends React.Component {
     return this.state.id ? userJSX : guestJSX;
   }
 }
-const mapState = state => {
+const mapState = (state) => {
   return {
     cart: state.cart,
   };
 };
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
-    getCart: id => dispatch(fetchCart(id)),
+    getCart: (id) => dispatch(fetchCart(id)),
     getUser: () => dispatch(me()),
     //UPDATE CART
     update: (thingToUpdate, userId) =>
       dispatch(updateCart(thingToUpdate, userId)),
     delete: (itemId, userId) => dispatch(clearItem(itemId, userId)),
-    closeCart: id => dispatch(closeCart(id)),
+    closeCart: (id) => dispatch(closeCart(id)),
   };
 };
 
 export default connect(mapState, mapDispatch)(Cart);
+
+//C: there are two maps that use the same key in this component. this is throwing you an error. simple fix here is to use an index for one of them. not the best solution but good enough for this
+//C: your component doesnt know what this.state.guestCart is at first so you need to use a short circuit check so that you will not throw an error

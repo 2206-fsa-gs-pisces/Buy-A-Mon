@@ -101,3 +101,5 @@
 // };
 
 // export default connect(mapState, mapDispatch)(Checkout);
+
+//C: im assuming that this entire component is going to get scratched???

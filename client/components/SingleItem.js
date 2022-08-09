@@ -7,7 +7,6 @@ import { fetchCart } from "../store/cart";
 import { me } from "../store/auth";
 import { deleteItem } from "../store/items";
 
-
 class SingleItem extends React.Component {
   constructor() {
     super();
@@ -20,10 +19,10 @@ class SingleItem extends React.Component {
     const user = await this.props.getUser();
     if (!user) {
       let alreadyInCart = false;
-      if (!window.localStorage.getItem('cart')) {
-        window.localStorage.setItem('cart', JSON.stringify([]));
+      if (!window.localStorage.getItem("cart")) {
+        window.localStorage.setItem("cart", JSON.stringify([]));
       }
-      let guestCart = JSON.parse(window.localStorage.getItem('cart'));
+      let guestCart = JSON.parse(window.localStorage.getItem("cart"));
       for (let i = 0; i < guestCart.length; i++) {
         if (guestCart[i].id === this.props.item.id && guestCart[i].qty) {
           guestCart[i].qty++;
@@ -35,7 +34,7 @@ class SingleItem extends React.Component {
         temp.qty = 1;
         guestCart.push(temp);
       }
-      window.localStorage.setItem('cart', JSON.stringify(guestCart));
+      window.localStorage.setItem("cart", JSON.stringify(guestCart));
       console.log(window.localStorage.cart);
     } else {
       const id = user.auth.id;
@@ -69,12 +68,12 @@ class SingleItem extends React.Component {
       this.props.singleItem(this.props.match.params.id);
     }
   }
-  async componentDidMount() {
-    const user = await this.props.getUser();
-    const id = user.auth.id;
-    this.props.singleItem(this.props.match.params.id);
-    this.props.getCart(id);
-  }
+  // async componentDidMount() {
+  //   const user = await this.props.getUser();
+  //   const id = user.auth.id;
+  //   this.props.singleItem(this.props.match.params.id);
+  //   this.props.getCart(id);
+  // }
   render() {
     const name = this.props.item.name;
     const imageUrl = this.props.item.imageUrl;
@@ -97,7 +96,6 @@ class SingleItem extends React.Component {
         >
           Delete Item
         </button>
-
       </div>
     );
   }
@@ -115,7 +113,6 @@ const mapDispatch = (dispatch) => ({
   getCart: (id) => dispatch(fetchCart(id)),
   getUser: () => dispatch(me()),
   deleteItem: (id) => dispatch(deleteItem(id)),
-
 });
 
 export default connect(mapState, mapDispatch)(SingleItem);
@@ -147,3 +144,6 @@ export default connect(mapState, mapDispatch)(SingleItem);
 //     </div>
 //   );
 // }
+
+//C: there are two componentDidMounts in this component. Pretty sure this is not desired since the second one is breaking the code!
+//C: you are trying to push an object into another object in your local cart on line 35. you need to access the array in side of the object

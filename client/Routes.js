@@ -67,3 +67,5 @@ export default withRouter(connect(mapState, mapDispatch)(Routes));
             <Route path="/home" component={Home} />
           </Switch>
         ) : ( */
+
+//C: should see some routes here for logged in users and different routes for logged out users. could even have some admin routes at some point
