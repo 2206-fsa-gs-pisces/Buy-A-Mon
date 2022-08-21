@@ -1,16 +1,3 @@
-BRIAN LEE
-
-# FS-App-Template
-
-
-## Mark Pham
-=======
-
-NICK IS HERE
-=======
-## Nelson
-
-
 
 ## Setup
 
