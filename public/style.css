@@ -1,5 +1,5 @@
 body {
-  background-color: orangered;
+  background-color: lightgray;
   color: white;
   margin: 0;
   font-family: rubik;
@@ -11,7 +11,7 @@ body {
   text-transform: uppercase;
   text-align: center;
   font-size: 30px;
-  color: white;
+  color: black;
   font-family: "Raleway", sans-serif;
   justify-content: space-between;
   padding-left: 20px;
@@ -21,13 +21,13 @@ body {
   text-transform: uppercase;
   text-align: center;
   font-size: 25px;
-  color: white;
+  color: black;
   font-family: "Raleway", sans-serif;
   justify-content: space-between;
   padding: 40px;
 }
 #navbar a {
-  color: #c8c8c8;
+  color: black;
   text-decoration: underline;
 }
 #allUsers {
